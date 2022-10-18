@@ -1,5 +1,5 @@
 import AuthProvider from './contexts/auth-context'
-import Login from './pages/Login'
+import Login from './pages/login'
 import Layout from './components/layout'
 
 const App = () => {

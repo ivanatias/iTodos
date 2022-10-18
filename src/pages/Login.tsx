@@ -1,48 +1,48 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Input from '../components/input'
-import { login } from '../services/login-service'
+import { toast } from 'react-hot-toast'
+import { Link } from 'react-router-dom'
+import { useField } from '../hooks/useField'
+import { useAuth } from '../contexts/auth-context'
+import type { FormEvent } from '../models/types'
 
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const { reset: resetUsername, ...username } = useField({ type: 'text' })
+  const { reset: resetPassword, ...password } = useField({ type: 'password' })
+  const { loginUser } = useAuth()
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
-  }
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    console.log({ username, password })
-    const user = await login({ username, password })
+    try {
+      await loginUser({ username: username.value, password: password.value })
+      // navigate to main /
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message)
+        console.error(err)
+      }
+      resetUsername()
+      resetPassword()
+    }
   }
 
   return (
-    <section className='w-full max-w-sm h-screen flex flex-col justify-center gap-5'>
-      <h1 className='font-bold text-3xl lg:text-5xl text-slate-500 text-center'>
+    <section className='flex flex-col justify-center w-full h-screen max-w-sm gap-5'>
+      <h1 className='text-3xl font-bold text-center lg:text-5xl text-slate-500'>
         Sign in
       </h1>
-      <div className='p-3 bg-gray-100 shadow-md rounded-sm'>
-        <form onSubmit={handleLogin} className='w-full flex flex-col gap-5'>
+      <div className='p-3 bg-gray-100 rounded-sm shadow-md'>
+        <form onSubmit={handleLogin} className='flex flex-col w-full gap-5'>
           <Input
-            value={username}
-            type='text'
+            {...username}
             id='username'
             name='username'
             placeholder='johndoe'
-            onChange={handleUsernameChange}
           />
           <Input
-            value={password}
-            type='password'
+            {...password}
             id='password'
             name='password'
             placeholder='Enter password'
-            onChange={handlePasswordChange}
           />
           <div className='flex justify-center'>
             <button
@@ -55,8 +55,11 @@ const Login = () => {
         </form>
         <div className='mt-4'>
           <p className='text-xs '>
-            Don&apos;t have an account yet?{' '}
-            <Link to='' className='text-blue-500 underline underline-offset-1'>
+            Don&apos;t have an account yet?
+            <Link
+              to=''
+              className='ml-1 text-blue-500 underline underline-offset-1'
+            >
               Sign up
             </Link>
           </p>
