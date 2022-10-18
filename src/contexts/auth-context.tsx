@@ -55,9 +55,9 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const localUser = window.localStorage.getItem('user')
-    const userInfo = localUser !== null && JSON.parse(localUser)
-    if (userInfo !== undefined) {
-      setUser(userInfo)
+    const userSession = localUser !== null && JSON.parse(localUser)
+    if (userSession !== undefined) {
+      setUser(userSession)
     }
     setIsAuthorizing(false)
   }, [])
