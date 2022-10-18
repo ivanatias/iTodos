@@ -1,8 +1,11 @@
-function App() {
+import Login from './pages/Login'
+import Layout from './components/layout'
+
+const App = () => {
   return (
-    <div className='App'>
-      <h1 className='text-9xl'>Hello world</h1>
-    </div>
+    <Layout>
+      <Login />
+    </Layout>
   )
 }
 
