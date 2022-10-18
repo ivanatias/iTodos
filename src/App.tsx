@@ -1,11 +1,14 @@
+import AuthProvider from './contexts/auth-context'
 import Login from './pages/Login'
 import Layout from './components/layout'
 
 const App = () => {
   return (
-    <Layout>
-      <Login />
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Login />
+      </Layout>
+    </AuthProvider>
   )
 }
 
