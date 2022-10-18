@@ -1,3 +1,4 @@
+import { capitalize } from '../utils/helpers'
 interface Props {
   name: string
   id: string
@@ -5,11 +6,6 @@ interface Props {
   value: string | number
   placeholder?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const capitalize = (str: string) => {
-  const lowerCase = str.toLowerCase()
-  return `${str.charAt(0).toUpperCase()}${lowerCase.slice(1)}`
 }
 
 const textInputStyle =
