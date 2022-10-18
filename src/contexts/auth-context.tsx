@@ -1,34 +1,56 @@
 import { useState, useEffect, useContext, createContext } from 'react'
-import type { AuthResponse, Credentials } from '../services/login-service'
-import { login } from '../services/login-service'
+import { API_URL } from '../utils/constants'
 
-interface AuthProviderProps {
-  children: React.ReactNode
+interface Credentials {
+  username: string
+  password: string
+}
+
+interface AuthResponse {
+  username: string
+  name: string
+  token: string
 }
 
 interface AuthContextType {
-  user: AuthResponse | undefined
+  user: AuthResponse | null
   isAuthorizing: boolean
   loginUser: ({ username, password }: Credentials) => Promise<void>
   logoutUser: () => void
 }
+interface Props {
+  children: React.ReactNode
+}
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<AuthResponse | undefined>(undefined)
+const AuthProvider = ({ children }: Props) => {
+  const [user, setUser] = useState<AuthResponse | null>(null)
   const [isAuthorizing, setIsAuthorizing] = useState(true)
 
   const loginUser = async ({ username, password }: Credentials) => {
-    const userSession = await login({ username, password })
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    }
+
+    const response = await window.fetch(`${API_URL}/api/login`, config)
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(errorText)
+    }
+
+    const userSession = (await response.json()) as AuthResponse
     setUser(userSession)
-    setIsAuthorizing(false)
     window.localStorage.setItem('user', JSON.stringify(userSession))
   }
 
   const logoutUser = () => {
     window.localStorage.removeItem('user')
-    setUser(undefined)
+    setUser(null)
   }
 
   useEffect(() => {
@@ -36,7 +58,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const userInfo = localUser !== null && JSON.parse(localUser)
     if (userInfo !== undefined) {
       setUser(userInfo)
-      setIsAuthorizing(false)
     }
     setIsAuthorizing(false)
   }, [])
