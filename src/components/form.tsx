@@ -4,7 +4,7 @@ import type { FormEvent } from '../models/types'
 
 interface FormProps {
   inputs: InputProps[]
-  onSubmit: (e: FormEvent) => Promise<void>
+  onSubmit: (e: FormEvent) => Promise<void> | void
   submitActionText: string
 }
 
