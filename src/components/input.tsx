@@ -1,11 +1,12 @@
 import { capitalize } from '../utils/helpers'
+import type { InputChangeEvent } from '../models/types'
 interface Props {
   name: string
   id: string
   type: string
   value: string | number
   placeholder?: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: InputChangeEvent) => void
 }
 
 const textInputStyle =
@@ -17,7 +18,7 @@ const Input = (props: Props) => {
 
   return (
     <div className='flex flex-col gap-1'>
-      <label className='text-xs mb-2' htmlFor={props.id}>
+      <label className='mb-2 text-xs' htmlFor={props.id}>
         {capitalize(props.name)}
       </label>
       <input {...props} className={style} />
