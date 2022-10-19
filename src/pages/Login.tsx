@@ -1,6 +1,6 @@
 import Input from '../components/input'
 import { toast } from 'react-hot-toast'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useAuth } from '../contexts/auth-context'
 import type { FormEvent } from '../models/types'
@@ -9,12 +9,13 @@ const Login = () => {
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
   const { reset: resetPassword, ...password } = useField({ type: 'password' })
   const { loginUser } = useAuth()
+  const navigate = useNavigate()
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
     try {
       await loginUser({ username: username.value, password: password.value })
-      // navigate to main /
+      navigate('/', { replace: true })
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message)
