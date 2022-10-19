@@ -27,7 +27,7 @@ const Login = () => {
   }
 
   return (
-    <section className='flex flex-col justify-center w-full h-screen max-w-sm gap-5'>
+    <section className='flex flex-col w-full max-w-sm gap-5'>
       <h1 className='text-3xl font-bold text-center lg:text-5xl text-slate-500'>
         Sign in
       </h1>
