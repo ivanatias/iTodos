@@ -1,11 +1,9 @@
-interface Props {
-  children: React.ReactNode
-}
+import { Outlet } from 'react-router-dom'
 
-const Layout = ({ children }: Props) => {
+const Layout = () => {
   return (
-    <main className='max-w-2xl px-4 mx-auto flex flex-col items-center justify-center'>
-      {children}
+    <main className='flex flex-col items-center justify-center max-w-2xl px-4 mx-auto'>
+      <Outlet />
     </main>
   )
 }
