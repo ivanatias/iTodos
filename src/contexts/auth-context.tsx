@@ -55,7 +55,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const localUser = window.localStorage.getItem('user')
-    const userSession = localUser !== null && JSON.parse(localUser)
+    const userSession = localUser !== null ? JSON.parse(localUser) : undefined
     if (userSession !== undefined) {
       setUser(userSession)
     }
