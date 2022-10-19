@@ -1,9 +1,9 @@
-import Input from '../components/input'
-import { toast } from 'react-hot-toast'
+import Form from '../components/form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useAuth } from '../contexts/auth-context'
 import type { FormEvent } from '../models/types'
+import { toast } from 'react-hot-toast'
 
 const Login = () => {
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
@@ -32,28 +32,24 @@ const Login = () => {
         Sign in
       </h1>
       <div className='p-3 bg-gray-100 rounded-sm shadow-md'>
-        <form onSubmit={handleLogin} className='flex flex-col w-full gap-5'>
-          <Input
-            {...username}
-            id='username'
-            name='username'
-            placeholder='johndoe'
-          />
-          <Input
-            {...password}
-            id='password'
-            name='password'
-            placeholder='Enter password'
-          />
-          <div className='flex justify-center'>
-            <button
-              className='font-bold w-full max-w-[150px] text-blue-500'
-              type='submit'
-            >
-              Login
-            </button>
-          </div>
-        </form>
+        <Form
+          onSubmit={handleLogin}
+          submitActionText='Login'
+          inputs={[
+            {
+              ...username,
+              placeholder: 'johndoe',
+              id: 'username',
+              name: 'username',
+            },
+            {
+              ...password,
+              placeholder: 'Enter a password',
+              id: 'password',
+              name: 'password',
+            },
+          ]}
+        />
         <div className='mt-4'>
           <p className='text-xs '>
             Don&apos;t have an account yet?

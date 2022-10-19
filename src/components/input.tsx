@@ -1,6 +1,7 @@
 import { capitalize } from '../utils/helpers'
 import type { InputChangeEvent } from '../models/types'
-interface Props {
+
+export interface InputProps {
   name: string
   id: string
   type: string
@@ -12,7 +13,7 @@ interface Props {
 const textInputStyle =
   'px-1 py-2 text-sm h-8 outline-none border-none bg-gray-50 text-black placeholder:text-sm rounded-md w-full'
 
-const Input = (props: Props) => {
+const Input = (props: InputProps) => {
   const { type } = props
   const style = type === 'text' || type === 'password' ? textInputStyle : ''
 
