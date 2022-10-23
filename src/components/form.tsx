@@ -10,7 +10,7 @@ interface FormProps {
 
 const Form = ({ inputs, onSubmit, submitActionText }: FormProps) => {
   return (
-    <form onSubmit={onSubmit} className='flex flex-col w-full gap-5'>
+    <form onSubmit={onSubmit} className='flex flex-col w-full gap-3'>
       {inputs.map((input, index) => (
         <Input {...input} key={index} />
       ))}
