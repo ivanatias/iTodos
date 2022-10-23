@@ -9,7 +9,7 @@ export const getUserTodos = async (
       Authorization: `Bearer ${token} `,
     },
   }
-  const response = await fetch(`${API_URL}/api/todos`, config)
+  const response = await fetch(`${API_URL}/api/todos/usertodos`, config)
 
   if (!response.ok) {
     const errorText = await response.text()
