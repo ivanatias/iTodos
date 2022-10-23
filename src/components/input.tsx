@@ -2,10 +2,11 @@ import { capitalize } from '../utils/helpers'
 import type { InputChangeEvent } from '../models/types'
 
 export interface InputProps {
-  name: string
+  name?: string
   id: string
   type: string
-  value: string | number
+  value: string
+  checked?: boolean
   placeholder?: string
   onChange: (e: InputChangeEvent) => void
 }
@@ -18,12 +19,14 @@ const Input = (props: InputProps) => {
   const style = type === 'text' || type === 'password' ? textInputStyle : ''
 
   return (
-    <div className='flex flex-col gap-1'>
-      <label className='mb-2 text-xs' htmlFor={props.id}>
-        {capitalize(props.name)}
-      </label>
+    <>
+      {props.name !== undefined && (
+        <label className='text-xs' htmlFor={props.id}>
+          {capitalize(props.name)}
+        </label>
+      )}
       <input {...props} className={style} />
-    </div>
+    </>
   )
 }
 
