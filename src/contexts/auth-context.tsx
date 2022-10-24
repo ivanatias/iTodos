@@ -68,8 +68,9 @@ const AuthProvider = ({ children }: Props) => {
 export const useAuth = () => {
   const context = useContext(AuthContext)
 
-  if (context === undefined)
+  if (context === undefined) {
     throw new Error('useAuth must be used within a child of AuthProvider')
+  }
 
   return context
 }

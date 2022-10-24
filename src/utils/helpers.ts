@@ -6,8 +6,10 @@ const capitalize = (str: string) => {
 }
 
 const verifyUserData = (userData: AuthResponse | null) => {
-  if (userData === null)
+  if (userData === null) {
     throw new Error('User data should be available at this point but it is not')
+  }
+
   return userData
 }
 
