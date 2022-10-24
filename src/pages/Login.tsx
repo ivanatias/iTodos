@@ -6,8 +6,8 @@ import type { FormEvent } from '../models/types'
 import { toast } from 'react-hot-toast'
 
 const Login = () => {
-  const { reset: resetUsername, ...username } = useField({ type: 'text' })
-  const { reset: resetPassword, ...password } = useField({ type: 'password' })
+  const { reset: resetUsername, ...username } = useField('text')
+  const { reset: resetPassword, ...password } = useField('password')
   const { loginUser } = useAuth()
   const navigate = useNavigate()
 

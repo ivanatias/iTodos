@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import type { InputChangeEvent } from '../models/types'
+import type { InputChangeEvent, InputType } from '../models/types'
 
-interface UseFieldType {
-  type: 'text' | 'password' | 'checkbox'
-}
-
-export const useField = ({ type }: UseFieldType) => {
+export const useField = (type: InputType) => {
   const [value, setValue] = useState('')
   const [checked, setChecked] = useState(false)
 
