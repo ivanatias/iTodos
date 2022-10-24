@@ -3,10 +3,12 @@ import MainHeader from '../components/main-header'
 import { useTodos } from '../hooks/useTodos'
 import { useAuth } from '../contexts/auth-context'
 import { useNavigate } from 'react-router'
+import { verifyUserData } from '../utils/helpers'
 
 const Main = () => {
   const { user, logoutUser } = useAuth()
-  const { todos, isLoading } = useTodos(user?.token as string)
+  const verifiedUser = verifyUserData(user)
+  const { todos, isLoading } = useTodos(verifiedUser.token)
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -18,8 +20,8 @@ const Main = () => {
 
   return (
     <section className='flex flex-col w-full max-w-md gap-5'>
-      <MainHeader name={user?.name as string} handleLogout={handleLogout} />
-      <AddTodoForm token={user?.token as string} />
+      <MainHeader name={verifiedUser.name} handleLogout={handleLogout} />
+      <AddTodoForm token={verifiedUser.token} />
       <div>
         {todos?.map((todo) => (
           <p key={todo.id}>{todo.title}</p>
