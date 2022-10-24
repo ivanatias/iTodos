@@ -1,17 +1,6 @@
 import { useState, useEffect, useContext, createContext } from 'react'
+import type { Credentials, AuthResponse } from '../models/types'
 import { API_URL } from '../utils/constants'
-
-interface Credentials {
-  username: string
-  password: string
-}
-
-interface AuthResponse {
-  username: string
-  name: string
-  token: string
-}
-
 interface AuthContextType {
   user: AuthResponse | null
   isAuthorizing: boolean

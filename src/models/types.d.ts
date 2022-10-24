@@ -10,3 +10,14 @@ export interface Todo {
   user: string
   id: string
 }
+
+export interface Credentials {
+  username: string
+  password: string
+}
+
+export interface AuthResponse {
+  username: string
+  name: string
+  token: string
+}
