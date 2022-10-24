@@ -21,7 +21,7 @@ export const addTodo = async ({
     body: JSON.stringify({ title, isPriority }),
   }
 
-  const response = await fetch(`${API_URL}/api/todos`, config)
+  const response = await window.fetch(`${API_URL}/api/todos`, config)
   if (!response.ok) {
     const errorText = await response.text()
     throw new Error(errorText)
