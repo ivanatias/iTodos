@@ -20,9 +20,11 @@ const EditTodo = ({ todoTitle, todoPriority, toggleEdit }: Props) => {
         defaultCheckedValue={todoPriority}
         submitActionText='Edit todo'
       />
-      <div className='flex items-center justify-center gap-3'>
-        <button onClick={toggleEdit}>Cancel</button>
-        <button>Save</button>
+      <div className='flex items-center justify-center gap-3 text-xs 2xl:text-sm'>
+        <button className='text-gray-600' onClick={toggleEdit}>
+          Cancel
+        </button>
+        <button className='text-green-600'>Save</button>
       </div>
     </div>
   )
