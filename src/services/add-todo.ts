@@ -27,6 +27,6 @@ export const addTodo = async ({
     throw new Error(errorText)
   }
 
-  const todo = (await response.json()) as Todo
+  const todo = await response.json()
   return todo
 }
