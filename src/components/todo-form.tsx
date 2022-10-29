@@ -7,7 +7,7 @@ interface Props {
   token: string
   defaultTextValue?: string
   defaultCheckedValue?: boolean
-  submitActionText: string
+  submitActionText: 'edit' | 'add'
 }
 
 const TodoForm = ({
@@ -42,7 +42,7 @@ const TodoForm = ({
       <div className='flex items-center justify-between gap-3'>
         <Input {...todoText} id='todo' placeholder='Write a todo!' />
         <button className='flex-shrink-0 text-sm font-bold text-blue-500 underline border-none outline-none underline-offset-2 2xl:text-base'>
-          {submitActionText}
+          {submitActionText === 'edit' ? 'Edit todo' : 'Add todo'}
         </button>
       </div>
       <div className='flex items-center gap-2'>

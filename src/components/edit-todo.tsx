@@ -18,7 +18,7 @@ const EditTodo = ({ todoTitle, todoPriority, toggleEdit }: Props) => {
         token={verifiedUser.token}
         defaultTextValue={todoTitle}
         defaultCheckedValue={todoPriority}
-        submitActionText='Edit todo'
+        submitActionText='edit'
       />
       <div className='flex items-center justify-center gap-3 text-xs 2xl:text-sm'>
         <button className='text-gray-600' onClick={toggleEdit}>

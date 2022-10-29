@@ -22,7 +22,7 @@ const Main = () => {
   return (
     <section className='flex flex-col w-full max-w-md gap-5'>
       <MainHeader name={verifiedUser.name} handleLogout={handleLogout} />
-      <TodoForm token={verifiedUser.token} submitActionText='Add todo' />
+      <TodoForm token={verifiedUser.token} submitActionText='add' />
       <TodoList todos={todos} />
     </section>
   )
