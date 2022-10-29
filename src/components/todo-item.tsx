@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import EditTodo from './edit-todo'
+import { useToggle } from '../hooks/useToggle'
 import { CheckIcon, TrashIcon, PencilIcon } from '@heroicons/react/20/solid'
 import type { Todo } from '../models/types'
 
@@ -8,11 +8,7 @@ interface Props {
 }
 
 const TodoItem = ({ todo }: Props) => {
-  const [edit, setEdit] = useState<boolean>(false)
-
-  const toggleEdit = () => {
-    setEdit(!edit)
-  }
+  const { value: edit, toggleValue: toggleEdit } = useToggle()
 
   if (edit) {
     return (
