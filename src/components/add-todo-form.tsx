@@ -9,8 +9,10 @@ interface Props {
 
 const AddTodoForm = ({ token }: Props) => {
   const { addNewTodo } = useMutateTodos(token)
-  const { reset: resetTodoInput, ...todoText } = useField('text')
-  const { reset: resetTodoPriority, ...todoPriority } = useField('checkbox')
+  const { reset: resetTodoInput, ...todoText } = useField({ type: 'text' })
+  const { reset: resetTodoPriority, ...todoPriority } = useField({
+    type: 'checkbox',
+  })
 
   const createTodo = (e: FormEvent) => {
     e.preventDefault()
