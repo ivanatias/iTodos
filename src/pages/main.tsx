@@ -1,5 +1,6 @@
 import AddTodoForm from '../components/add-todo-form'
 import MainHeader from '../components/main-header'
+import TodoList from '../components/todo-list'
 import { useTodos } from '../hooks/useTodos'
 import { useAuth } from '../contexts/auth-context'
 import { useNavigate } from 'react-router'
@@ -22,11 +23,7 @@ const Main = () => {
     <section className='flex flex-col w-full max-w-md gap-5'>
       <MainHeader name={verifiedUser.name} handleLogout={handleLogout} />
       <AddTodoForm token={verifiedUser.token} />
-      <div>
-        {todos?.map((todo) => (
-          <p key={todo.id}>{todo.title}</p>
-        ))}
-      </div>
+      <TodoList todos={todos} />
     </section>
   )
 }
