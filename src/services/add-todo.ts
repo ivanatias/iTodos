@@ -1,11 +1,5 @@
 import { API_URL } from '../utils/constants'
-import type { Todo } from '../models/types'
-
-interface AddTodo {
-  token: string
-  title: string
-  isPriority: boolean
-}
+import type { Todo, AddTodo } from '../models/types'
 
 export const addTodo = async ({
   token,
