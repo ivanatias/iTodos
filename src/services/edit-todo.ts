@@ -1,20 +1,19 @@
 import { API_URL } from '../utils/constants'
-import type { Todo, TodoMutationData } from '../models/types'
+import type { Todo, EditTodo } from '../models/types'
 
 export const editTodo = async ({
   title,
   isPriority,
-  isCompleted,
   token,
   id,
-}: TodoMutationData): Promise<Todo | undefined> => {
+}: EditTodo): Promise<Todo | undefined> => {
   const config = {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
       Authorization: `Bearer ${token} `,
     },
-    body: JSON.stringify({ title, isPriority, isCompleted }),
+    body: JSON.stringify({ title, isPriority }),
   }
 
   const response = await window.fetch(`${API_URL}/api/todos/${id}`, config)

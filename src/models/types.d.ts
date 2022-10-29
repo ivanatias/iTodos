@@ -21,6 +21,8 @@ export interface TodoMutationData {
 
 export type AddTodo = Omit<TodoMutationData, 'id' | 'isCompleted'>
 
+export type EditTodo = Omit<TodoMutationData, 'isCompleted'>
+
 export type DeleteTodo = Pick<TodoMutationData, 'token' | 'id'>
 
 export interface Credentials {
