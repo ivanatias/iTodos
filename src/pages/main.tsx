@@ -1,4 +1,4 @@
-import AddTodoForm from '../components/add-todo-form'
+import TodoForm from '../components/todo-form'
 import MainHeader from '../components/main-header'
 import TodoList from '../components/todo-list'
 import { useTodos } from '../hooks/useTodos'
@@ -22,7 +22,7 @@ const Main = () => {
   return (
     <section className='flex flex-col w-full max-w-md gap-5'>
       <MainHeader name={verifiedUser.name} handleLogout={handleLogout} />
-      <AddTodoForm token={verifiedUser.token} />
+      <TodoForm token={verifiedUser.token} submitActionText='Add todo' />
       <TodoList todos={todos} />
     </section>
   )

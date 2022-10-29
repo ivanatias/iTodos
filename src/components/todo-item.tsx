@@ -14,7 +14,15 @@ const TodoItem = ({ todo }: Props) => {
     setEdit(!edit)
   }
 
-  if (edit) return <EditTodo toggleEdit={toggleEdit} />
+  if (edit) {
+    return (
+      <EditTodo
+        toggleEdit={toggleEdit}
+        todoTitle={todo.title}
+        todoPriority={todo.isPriority}
+      />
+    )
+  }
 
   return (
     <div key={todo.id} className='flex flex-col gap-1 p-2 bg-white rounded-sm'>

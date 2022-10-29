@@ -5,13 +5,25 @@ import type { FormEvent } from '../models/types'
 
 interface Props {
   token: string
+  defaultTextValue?: string
+  defaultCheckedValue?: boolean
+  submitActionText: string
 }
 
-const AddTodoForm = ({ token }: Props) => {
+const TodoForm = ({
+  token,
+  defaultTextValue,
+  defaultCheckedValue,
+  submitActionText,
+}: Props) => {
   const { addNewTodo } = useMutateTodos(token)
-  const { reset: resetTodoInput, ...todoText } = useField({ type: 'text' })
+  const { reset: resetTodoInput, ...todoText } = useField({
+    type: 'text',
+    defaultTextValue,
+  })
   const { reset: resetTodoPriority, ...todoPriority } = useField({
     type: 'checkbox',
+    defaultCheckedValue,
   })
 
   const createTodo = (e: FormEvent) => {
@@ -30,7 +42,7 @@ const AddTodoForm = ({ token }: Props) => {
       <div className='flex items-center justify-between gap-3'>
         <Input {...todoText} id='todo' placeholder='Write a todo!' />
         <button className='flex-shrink-0 text-sm font-bold text-blue-500 underline border-none outline-none underline-offset-2 2xl:text-base'>
-          Add todo
+          {submitActionText}
         </button>
       </div>
       <div className='flex items-center gap-2'>
@@ -47,4 +59,4 @@ const AddTodoForm = ({ token }: Props) => {
   )
 }
 
-export default AddTodoForm
+export default TodoForm
