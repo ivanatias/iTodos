@@ -15,13 +15,11 @@ export interface TodoMutationData {
   token: string
   title: string
   isPriority: boolean
-  isCompleted: boolean
+  isCompleted?: boolean
   id: string
 }
 
 export type AddTodo = Omit<TodoMutationData, 'id' | 'isCompleted'>
-
-export type EditTodo = Omit<TodoMutationData, 'isCompleted'>
 
 export type DeleteTodo = Pick<TodoMutationData, 'token' | 'id'>
 
