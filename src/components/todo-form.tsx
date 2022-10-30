@@ -49,7 +49,8 @@ const TodoForm = ({
   const editTodo = (e: FormEvent) => {
     e.preventDefault()
     if (todoText.value === '' || /^\s*$/.test(todoText.value)) {
-      return toast.error('You can not leave your todo with an empty title!')
+      toast.error('You can not leave your todo with an empty title!')
+      return resetTodoInput()
     }
     modifyTodo({
       title: todoText.value,
