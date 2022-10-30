@@ -2,6 +2,7 @@ import Input from './input'
 import { useField } from '../hooks/useField'
 import { useMutateTodos } from '../hooks/useMutateTodos'
 import type { FormEvent } from '../models/types'
+import toast from 'react-hot-toast'
 
 interface Props {
   token: string
@@ -32,6 +33,9 @@ const TodoForm = ({
 
   const createTodo = (e: FormEvent) => {
     e.preventDefault()
+    if (todoText.value === '') {
+      return toast.error('Your todo needs a title!')
+    }
     addNewTodo({
       title: todoText.value,
       isPriority: todoPriority.checked,
@@ -43,6 +47,9 @@ const TodoForm = ({
 
   const editTodo = (e: FormEvent) => {
     e.preventDefault()
+    if (todoText.value === '') {
+      return toast.error('You can not leave your todo with an empty title!')
+    }
     modifyTodo({
       title: todoText.value,
       isPriority: todoPriority.checked,
