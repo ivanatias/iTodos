@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { addTodo } from '../services/add-todo'
 import { editTodo } from '../services/edit-todo'
+import { deleteTodo } from '../services/delete-todo'
 import type { Todo } from '../models/types'
 
 interface UseMutateTodos {
@@ -55,16 +56,16 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
 
       queryClient.setQueryData(
         ['todos', token],
-        previousTodos.map((oldTodo) => {
-          if (oldTodo.id === todoId) {
+        previousTodos.map((prevTodo) => {
+          if (prevTodo.id === todoId) {
             return {
-              ...oldTodo,
+              ...prevTodo,
               title,
               isPriority,
               isCompleted,
             }
           }
-          return oldTodo
+          return prevTodo
         })
       )
 
@@ -80,5 +81,28 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
     },
   })
 
-  return { addNewTodo, modifyTodo }
+  const { mutate: removeTodo } = useMutation(deleteTodo, {
+    onMutate: async () => {
+      await queryClient.cancelQueries(['todos', token])
+
+      const previousTodos = queryClient.getQueryData(['todos', token]) as Todo[] // Since a todo is being deleted, it's safe to assume that previousTodos is not undefined.
+
+      queryClient.setQueryData<Todo[] | undefined>(
+        ['todos', token],
+        previousTodos.filter((prevTodo) => prevTodo.id !== todoId)
+      )
+
+      return { previousTodos }
+    },
+
+    onError: (_error, _variables, context) => {
+      queryClient.setQueryData(['todos', token], context?.previousTodos)
+    },
+
+    onSettled: async () => {
+      await queryClient.invalidateQueries(['todos', token])
+    },
+  })
+
+  return { addNewTodo, modifyTodo, removeTodo }
 }
