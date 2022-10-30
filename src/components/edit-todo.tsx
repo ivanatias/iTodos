@@ -27,7 +27,6 @@ const EditTodo = ({ todoTitle, todoPriority, todoId, toggleEdit }: Props) => {
         <button className='text-gray-600' onClick={toggleEdit}>
           Cancel
         </button>
-        <button className='text-green-600'>Save</button>
       </div>
     </div>
   )
