@@ -1,14 +1,25 @@
 import EditTodo from './edit-todo'
 import { useToggle } from '../hooks/useToggle'
+import { useMutateTodos } from '../hooks/useMutateTodos'
+import { useAuth } from '../contexts/auth-context'
 import { CheckIcon, TrashIcon, PencilIcon } from '@heroicons/react/20/solid'
 import type { Todo } from '../models/types'
+import { verifyUserData } from '../utils/helpers'
 
 interface Props {
   todo: Todo
 }
 
+const importantTodoStyles = 'border border-red-400'
+
 const TodoItem = ({ todo }: Props) => {
+  const { user } = useAuth()
+  const verifiedUser = verifyUserData(user)
   const { value: edit, toggleValue: toggleEdit } = useToggle()
+  const { removeTodo } = useMutateTodos({
+    token: verifiedUser.token,
+    todoId: todo.id,
+  })
 
   if (edit) {
     return (
@@ -16,12 +27,24 @@ const TodoItem = ({ todo }: Props) => {
         toggleEdit={toggleEdit}
         todoTitle={todo.title}
         todoPriority={todo.isPriority}
+        todoId={todo.id}
       />
     )
   }
 
+  const deleteTodo = () => {
+    removeTodo({
+      token: verifiedUser.token,
+      id: todo.id,
+    })
+  }
+
   return (
-    <div className='flex flex-col gap-1 p-2 bg-white rounded-sm'>
+    <div
+      className={`flex flex-col gap-1 p-2 bg-white rounded-sm border ${
+        todo.isPriority ? importantTodoStyles : ''
+      }`}
+    >
       <div className='flex items-center justify-end gap-3'>
         <button className='p-1 font-bold text-white bg-green-500 border-none rounded-md outline-none'>
           <CheckIcon className='w-3 h-3' />
@@ -32,7 +55,10 @@ const TodoItem = ({ todo }: Props) => {
         >
           <PencilIcon className='w-3 h-3' />
         </button>
-        <button className='p-1 font-bold text-white bg-red-500 border-none rounded-md outline-none'>
+        <button
+          onClick={deleteTodo}
+          className='p-1 font-bold text-white bg-red-500 border-none rounded-md outline-none'
+        >
           <TrashIcon className='w-3 h-3' />
         </button>
       </div>
