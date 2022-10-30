@@ -33,8 +33,9 @@ const TodoForm = ({
 
   const createTodo = (e: FormEvent) => {
     e.preventDefault()
-    if (todoText.value === '') {
-      return toast.error('Your todo needs a title!')
+    if (todoText.value === '' || /^\s*$/.test(todoText.value)) {
+      toast.error('Your todo needs a title!')
+      return resetTodoInput()
     }
     addNewTodo({
       title: todoText.value,
@@ -47,7 +48,7 @@ const TodoForm = ({
 
   const editTodo = (e: FormEvent) => {
     e.preventDefault()
-    if (todoText.value === '') {
+    if (todoText.value === '' || /^\s*$/.test(todoText.value)) {
       return toast.error('You can not leave your todo with an empty title!')
     }
     modifyTodo({
