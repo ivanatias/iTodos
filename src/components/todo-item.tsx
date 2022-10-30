@@ -76,7 +76,7 @@ const TodoItem = ({ todo }: Props) => {
           <TrashIcon className='w-3 h-3' />
         </button>
       </div>
-      <p className='text-sm 2xl:text-base'>{todo.title}</p>
+      <p className='text-sm break-words 2xl:text-base'>{todo.title}</p>
     </div>
   )
 }
