@@ -12,9 +12,38 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
   const queryClient = useQueryClient()
 
   const { mutate: addNewTodo } = useMutation(addTodo, {
-    onSuccess: (newTodo) => {
-      const oldQueryData = queryClient.getQueryData(['todos', token]) as Todo[]
-      queryClient.setQueryData(['todos', token], [...oldQueryData, newTodo])
+    onMutate: async ({ title, isPriority }) => {
+      await queryClient.cancelQueries(['todos', token])
+
+      const newTodo = {
+        title,
+        isPriority,
+      } as Todo // Asserting newTodo as Todo type, since "id", "date" and "isCompleted" fields are generated on the backend and not available on onMutate callback params.
+
+      const previousTodos: Todo[] | undefined = queryClient.getQueryData([
+        'todos',
+        token,
+      ])
+
+      queryClient.setQueryData<Todo[] | undefined>(
+        ['todos', token],
+        (oldTodos) => {
+          if (oldTodos !== undefined) return [...oldTodos, newTodo]
+        }
+      )
+
+      return { previousTodos }
+    },
+
+    onError: (_error, _variables, context) => {
+      queryClient.setQueryData<Todo[] | undefined>(
+        ['todos', token],
+        context?.previousTodos
+      )
+    },
+
+    onSettled: async () => {
+      await queryClient.invalidateQueries(['todos', token])
     },
   })
 
@@ -22,11 +51,11 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
     onMutate: async ({ title, isPriority, isCompleted }) => {
       await queryClient.cancelQueries(['todos', token])
 
-      const oldTodos = queryClient.getQueryData(['todos', token]) as Todo[]
+      const previousTodos = queryClient.getQueryData(['todos', token]) as Todo[] // Since a todo is being modified, it's safe to assume that previousTodos is not undefined.
 
       queryClient.setQueryData(
         ['todos', token],
-        oldTodos.map((oldTodo) => {
+        previousTodos.map((oldTodo) => {
           if (oldTodo.id === todoId) {
             return {
               ...oldTodo,
@@ -39,11 +68,11 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
         })
       )
 
-      return { oldTodos }
+      return { previousTodos }
     },
 
     onError: (_error, _variables, context) => {
-      queryClient.setQueryData(['todos', token], context?.oldTodos)
+      queryClient.setQueryData(['todos', token], context?.previousTodos)
     },
 
     onSettled: async () => {
