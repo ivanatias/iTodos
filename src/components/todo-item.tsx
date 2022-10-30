@@ -1,4 +1,5 @@
 import EditTodo from './edit-todo'
+import TodoActionButton from './todo-action-btn'
 import { useToggle } from '../hooks/useToggle'
 import { useMutateTodos } from '../hooks/useMutateTodos'
 import { useAuth } from '../contexts/auth-context'
@@ -57,24 +58,21 @@ const TodoItem = ({ todo }: Props) => {
       } ${todo.isCompleted ? completeTodoStyles : 'bg-white'}`}
     >
       <div className='flex items-center justify-end gap-3'>
-        <button
-          onClick={toggleTodoCompleted}
-          className='p-1 font-bold text-white bg-green-500 border-none rounded-md outline-none'
-        >
-          <CheckIcon className='w-3 h-3' />
-        </button>
-        <button
-          onClick={toggleEdit}
-          className='p-1 font-bold text-white bg-yellow-500 border-none rounded-md outline-none'
-        >
-          <PencilIcon className='w-3 h-3' />
-        </button>
-        <button
-          onClick={deleteTodo}
-          className='p-1 font-bold text-white bg-red-500 border-none rounded-md outline-none'
-        >
-          <TrashIcon className='w-3 h-3' />
-        </button>
+        <TodoActionButton
+          Icon={CheckIcon}
+          actionFunction={toggleTodoCompleted}
+          backgroundColor='bg-green-500'
+        />
+        <TodoActionButton
+          Icon={PencilIcon}
+          actionFunction={toggleEdit}
+          backgroundColor='bg-yellow-500'
+        />
+        <TodoActionButton
+          Icon={TrashIcon}
+          actionFunction={deleteTodo}
+          backgroundColor='bg-red-500'
+        />
       </div>
       <p className='text-sm break-words 2xl:text-base'>{todo.title}</p>
     </div>
