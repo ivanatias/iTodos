@@ -11,12 +11,13 @@ interface Props {
 }
 
 const importantTodoStyles = 'border border-red-400'
+const completeTodoStyles = 'line-through bg-slate-400 opacity-70'
 
 const TodoItem = ({ todo }: Props) => {
   const { user } = useAuth()
   const verifiedUser = verifyUserData(user)
   const { value: edit, toggleValue: toggleEdit } = useToggle()
-  const { removeTodo } = useMutateTodos({
+  const { removeTodo, modifyTodo } = useMutateTodos({
     token: verifiedUser.token,
     todoId: todo.id,
   })
@@ -39,14 +40,27 @@ const TodoItem = ({ todo }: Props) => {
     })
   }
 
+  const toggleTodoCompleted = () => {
+    modifyTodo({
+      token: verifiedUser.token,
+      title: todo.title,
+      isPriority: todo.isPriority,
+      isCompleted: !todo.isCompleted,
+      id: todo.id,
+    })
+  }
+
   return (
     <div
-      className={`flex flex-col gap-1 p-2 bg-white rounded-sm border ${
+      className={`flex flex-col gap-1 p-2 rounded-sm border ${
         todo.isPriority ? importantTodoStyles : ''
-      }`}
+      } ${todo.isCompleted ? completeTodoStyles : 'bg-white'}`}
     >
       <div className='flex items-center justify-end gap-3'>
-        <button className='p-1 font-bold text-white bg-green-500 border-none rounded-md outline-none'>
+        <button
+          onClick={toggleTodoCompleted}
+          className='p-1 font-bold text-white bg-green-500 border-none rounded-md outline-none'
+        >
           <CheckIcon className='w-3 h-3' />
         </button>
         <button
