@@ -1,12 +1,14 @@
 import { useState, useEffect, useContext, createContext } from 'react'
 import type { Credentials, AuthResponse } from '../models/types'
 import { API_URL } from '../utils/constants'
+
 interface AuthContextType {
   user: AuthResponse | null
   isAuthorizing: boolean
   loginUser: ({ username, password }: Credentials) => Promise<void>
   logoutUser: () => void
 }
+
 interface Props {
   children: React.ReactNode
 }
