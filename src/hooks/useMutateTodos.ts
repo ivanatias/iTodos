@@ -19,10 +19,10 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
       const newTodo = {
         title,
         isPriority,
-        id: `${Math.floor(Math.random() * 1000)}`, // assign random id on optimistic update to avoid key warning on console, will be replaced by id coming from backend on OnSettled callback revalidation.
-      } as Todo // Asserting newTodo as Todo type, since "id", "date" and "isCompleted" fields are generated on the backend and not available on onMutate callback params.
+        id: `${Math.floor(Math.random() * 1000)}`, // assign random id on optimistic update to avoid key warning on console, will be replaced by id coming from backend on onSettled callback revalidation.
+      } as Todo // Asserting newTodo as Todo type, since "id", "date", "user" and "isCompleted" fields are generated on the backend and not available on onMutate callback params.
 
-      const previousTodos: Todo[] | undefined = queryClient.getQueryData([
+      const previousTodos = queryClient.getQueryData<Todo[] | undefined>([
         'todos',
         token,
       ])
@@ -30,7 +30,7 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
       queryClient.setQueryData<Todo[] | undefined>(
         ['todos', token],
         (oldTodos) => {
-          if (oldTodos !== undefined) return [...oldTodos, newTodo]
+          return oldTodos !== undefined ? [...oldTodos, newTodo] : undefined
         }
       )
 
