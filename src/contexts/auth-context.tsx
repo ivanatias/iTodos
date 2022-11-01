@@ -50,7 +50,9 @@ const AuthProvider = ({ children }: Props) => {
     if (userSession !== undefined) {
       setUser(userSession)
     }
-    setIsAuthorizing(false)
+    setTimeout(() => {
+      setIsAuthorizing(false)
+    }, 2500)
   }, [])
 
   const contextValues = {
