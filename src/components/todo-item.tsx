@@ -1,7 +1,8 @@
 import EditTodo from './edit-todo'
 import TodoActionButton from './todo-action-btn'
 import { useToggle } from '../hooks/useToggle'
-import { useMutateTodos } from '../hooks/useMutateTodos'
+import { useRemoveTodo } from '../hooks/mutations/useRemoveTodo'
+import { useModifyTodo } from '../hooks/mutations/useModifyTodo'
 import { useAuth } from '../contexts/auth-context'
 import { CheckIcon, TrashIcon, PencilIcon } from '@heroicons/react/20/solid'
 import type { Todo } from '../models/types'
@@ -18,21 +19,14 @@ const TodoItem = ({ todo }: Props) => {
   const { user } = useAuth()
   const verifiedUser = verifyUserData(user)
   const { value: edit, toggleValue: toggleEdit } = useToggle()
-  const { removeTodo, modifyTodo } = useMutateTodos({
+  const { removeTodo } = useRemoveTodo({
     token: verifiedUser.token,
-    todoId: todo.id,
+    id: todo.id,
   })
-
-  if (edit) {
-    return (
-      <EditTodo
-        toggleEdit={toggleEdit}
-        todoTitle={todo.title}
-        todoPriority={todo.isPriority}
-        todoId={todo.id}
-      />
-    )
-  }
+  const { modifyTodo } = useModifyTodo({
+    token: verifiedUser.token,
+    id: todo.id,
+  })
 
   const deleteTodo = () => {
     removeTodo({
@@ -49,6 +43,17 @@ const TodoItem = ({ todo }: Props) => {
       isCompleted: !todo.isCompleted,
       id: todo.id,
     })
+  }
+
+  if (edit) {
+    return (
+      <EditTodo
+        toggleEdit={toggleEdit}
+        todoTitle={todo.title}
+        todoPriority={todo.isPriority}
+        todoId={todo.id}
+      />
+    )
   }
 
   return (

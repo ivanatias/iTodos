@@ -1,6 +1,7 @@
 import Input from './input'
 import { useField } from '../hooks/useField'
-import { useMutateTodos } from '../hooks/useMutateTodos'
+import { useAddTodo } from '../hooks/mutations/useAddTodo'
+import { useModifyTodo } from '../hooks/mutations/useModifyTodo'
 import type { FormEvent } from '../models/types'
 import toast from 'react-hot-toast'
 
@@ -21,7 +22,8 @@ const TodoForm = ({
   todoId,
   toggleEdit,
 }: Props) => {
-  const { addNewTodo, modifyTodo } = useMutateTodos({ token, todoId })
+  const { addNewTodo } = useAddTodo(token)
+  const { modifyTodo } = useModifyTodo({ token, id: todoId ?? '' })
   const { reset: resetTodoInput, ...todoText } = useField({
     type: 'text',
     defaultTextValue,
@@ -55,7 +57,7 @@ const TodoForm = ({
     modifyTodo({
       title: todoText.value,
       isPriority: todoPriority.checked,
-      id: todoId as string,
+      id: todoId ?? '',
       token,
     })
     if (typeof toggleEdit !== 'undefined') toggleEdit()
