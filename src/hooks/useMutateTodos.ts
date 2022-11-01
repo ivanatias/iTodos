@@ -53,7 +53,12 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
     onMutate: async ({ title, isPriority, isCompleted }) => {
       await queryClient.cancelQueries(['todos', token])
 
-      const previousTodos = queryClient.getQueryData(['todos', token]) as Todo[] // Since a todo is being modified, it's safe to assume that previousTodos is not undefined.
+      const previousTodos = queryClient.getQueryData<Todo[] | undefined>([
+        'todos',
+        token,
+      ])
+
+      if (previousTodos === undefined) return
 
       queryClient.setQueryData(
         ['todos', token],
@@ -86,9 +91,14 @@ export const useMutateTodos = ({ token, todoId }: UseMutateTodos) => {
     onMutate: async () => {
       await queryClient.cancelQueries(['todos', token])
 
-      const previousTodos = queryClient.getQueryData(['todos', token]) as Todo[] // Since a todo is being deleted, it's safe to assume that previousTodos is not undefined.
+      const previousTodos = queryClient.getQueryData<Todo[] | undefined>([
+        'todos',
+        token,
+      ])
 
-      queryClient.setQueryData<Todo[] | undefined>(
+      if (previousTodos === undefined) return
+
+      queryClient.setQueryData(
         ['todos', token],
         previousTodos.filter((prevTodo) => prevTodo.id !== todoId)
       )
