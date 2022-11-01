@@ -1,6 +1,7 @@
 import TodoForm from '../components/todo-form'
 import MainHeader from '../components/main-header'
 import TodoList from '../components/todo-list'
+import Spinner from '../components/spinner'
 import { useTodos } from '../hooks/useTodos'
 import { useAuth } from '../contexts/auth-context'
 import { useNavigate } from 'react-router'
@@ -17,7 +18,7 @@ const Main = () => {
     navigate('/login', { replace: true })
   }
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Spinner />
 
   return (
     <section className='flex flex-col w-full max-w-md gap-5'>
