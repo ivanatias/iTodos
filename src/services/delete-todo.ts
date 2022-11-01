@@ -1,7 +1,7 @@
 import { API_URL } from '../utils/constants'
-import type { DeleteTodo } from '../models/types'
+import type { MutateTodo } from '../models/types'
 
-export const deleteTodo = async ({ token, id }: DeleteTodo): Promise<void> => {
+export const deleteTodo = async ({ token, id }: MutateTodo): Promise<void> => {
   const config = {
     method: 'DELETE',
     headers: {
