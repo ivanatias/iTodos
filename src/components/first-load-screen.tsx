@@ -1,9 +1,7 @@
+import GradientTitle from './gradient-title'
+
 const FirstLoadScreen = () => {
-  return (
-    <h1 className='text-2xl font-bold text-center animate-bounce xl:text-4xl'>
-      iTodos
-    </h1>
-  )
+  return <GradientTitle animationClass='animate-bounce'>iTodos</GradientTitle>
 }
 
 export default FirstLoadScreen

@@ -1,4 +1,5 @@
 import Form from '../components/form'
+import GradientTitle from '../components/gradient-title'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useLogout } from '../hooks/useLogout'
@@ -35,9 +36,7 @@ const Signup = () => {
 
   return (
     <section className='flex flex-col w-full max-w-sm gap-5'>
-      <h1 className='text-3xl font-bold text-center lg:text-5xl text-slate-500'>
-        Sign up
-      </h1>
+      <GradientTitle>Sign up</GradientTitle>
       <div className='flex flex-col gap-3 p-3 bg-gray-100 rounded-sm shadow-md'>
         <Form
           onSubmit={handleSignup}

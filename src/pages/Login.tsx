@@ -1,4 +1,5 @@
 import Form from '../components/form'
+import GradientTitle from '../components/gradient-title'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useAuth } from '../contexts/auth-context'
@@ -30,9 +31,7 @@ const Login = () => {
 
   return (
     <section className='flex flex-col w-full max-w-sm gap-5'>
-      <h1 className='p-3 text-3xl font-bold text-center text-transparent lg:text-5xl bg-clip-text bg-gradient-to-r from-blue-500 to-gray-300'>
-        Sign in
-      </h1>
+      <GradientTitle>Sign in</GradientTitle>
       <div className='p-3 bg-gray-100 rounded-sm shadow-md'>
         <Form
           onSubmit={handleLogin}
