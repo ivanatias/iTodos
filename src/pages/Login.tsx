@@ -54,7 +54,7 @@ const Login = () => {
           <p className='text-xs '>
             Don&apos;t have an account yet?
             <Link
-              to=''
+              to='/signup'
               className='ml-1 text-blue-500 underline underline-offset-1'
             >
               Sign up
