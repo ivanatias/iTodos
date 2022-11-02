@@ -2,10 +2,12 @@ import Form from '../components/form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useAuth } from '../contexts/auth-context'
+import { useLogout } from '../hooks/useLogout'
 import type { FormEvent } from '../models/types'
 import { toast } from 'react-hot-toast'
 
 const Login = () => {
+  useLogout()
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
   const { reset: resetPassword, ...password } = useField({ type: 'password' })
   const { loginUser } = useAuth()
@@ -28,7 +30,7 @@ const Login = () => {
 
   return (
     <section className='flex flex-col w-full max-w-sm gap-5'>
-      <h1 className='text-3xl font-bold text-center lg:text-5xl text-slate-500'>
+      <h1 className='p-3 text-3xl font-bold text-center text-transparent lg:text-5xl bg-clip-text bg-gradient-to-r from-blue-500 to-gray-300'>
         Sign in
       </h1>
       <div className='p-3 bg-gray-100 rounded-sm shadow-md'>

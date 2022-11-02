@@ -1,12 +1,14 @@
 import Form from '../components/form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
+import { useLogout } from '../hooks/useLogout'
 import { signUp } from '../services/sign-up'
 import type { FormEvent } from '../models/types'
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import { toast } from 'react-hot-toast'
 
 const Signup = () => {
+  useLogout()
   const { reset: resetName, ...name } = useField({ type: 'text' })
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
   const { reset: resetPassword, ...password } = useField({ type: 'password' })
@@ -61,7 +63,7 @@ const Signup = () => {
             },
           ]}
         />
-        <div className='flex justify-center text-gray-600'>
+        <div className='flex justify-center text-sm text-gray-600'>
           <Link to='/login' className='flex items-center justify-center w-fit'>
             <ArrowLeftIcon className='w-4 h-4 mr-2' />
             Back
