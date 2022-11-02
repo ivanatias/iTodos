@@ -31,6 +31,9 @@ const Signup = () => {
         toast.error(error.message)
         console.error(error)
       }
+      resetName()
+      resetUsername()
+      resetPassword()
     }
   }
 
