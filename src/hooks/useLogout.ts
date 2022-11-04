@@ -1,17 +1,13 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { useAuth } from '../contexts/auth-context'
 
 export const useLogout = () => {
   const { user, logoutUser } = useAuth()
 
-  const handleLogout = useCallback(() => {
+  useEffect(() => {
     if (user !== null) {
       logoutUser()
-      console.log('User logged out!')
+      console.log('User logged out')
     }
   }, [user, logoutUser])
-
-  useEffect(() => {
-    handleLogout()
-  }, [handleLogout])
 }
