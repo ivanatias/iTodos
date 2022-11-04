@@ -56,7 +56,7 @@ const Login = () => {
             Don&apos;t have an account yet?
             <Link
               to='/signup'
-              className='ml-1 text-blue-500 underline underline-offset-1'
+              className='ml-1 text-red-400 underline underline-offset-1'
             >
               Sign up
             </Link>
