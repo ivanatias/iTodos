@@ -1,4 +1,5 @@
 import Input from './input'
+import PlainButton from './plain-button'
 import type { InputProps } from './input'
 import type { FormEvent } from '../models/types'
 
@@ -15,12 +16,9 @@ const Form = ({ inputs, onSubmit, submitActionText }: FormProps) => {
         <Input {...input} key={index} />
       ))}
       <div className='flex justify-center'>
-        <button
-          className='font-bold w-full max-w-[150px] text-blue-500'
-          type='submit'
-        >
+        <PlainButton variant='primary' type='submit' size='big'>
           {submitActionText}
-        </button>
+        </PlainButton>
       </div>
     </form>
   )
