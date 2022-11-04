@@ -17,7 +17,10 @@ const Signup = () => {
 
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault()
-    console.log(username.value, name.value, password.value)
+    if (username.value === '' || password.value === '' || name.value === '') {
+      toast.error('All fields are required!')
+      return
+    }
     try {
       await signUp({
         name: name.value,
