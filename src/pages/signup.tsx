@@ -68,12 +68,13 @@ const Signup = () => {
             },
           ]}
         />
-        <div className='flex justify-center text-sm text-gray-600'>
-          <Link to='/login' className='flex items-center justify-center w-fit'>
-            <ArrowLeftIcon className='w-4 h-4 mr-2' />
-            Back
-          </Link>
-        </div>
+        <Link
+          to='/login'
+          className='flex items-center justify-center text-sm text-gray-600 w-fit'
+        >
+          <ArrowLeftIcon className='w-4 h-4 mr-1' />
+          Back
+        </Link>
       </div>
     </section>
   )
