@@ -4,20 +4,23 @@ import Signup from './pages/signup'
 import Main from './pages/main'
 import Layout from './components/layout'
 import ProtectedRoute from './components/protected-route'
+import ErrorBoundary from './components/error-boundary'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
   return (
     <AuthProvider>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route element={<ProtectedRoute />}>
-            <Route path='/' element={<Main />} />
+      <ErrorBoundary>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route element={<ProtectedRoute />}>
+              <Route path='/' element={<Main />} />
+            </Route>
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
           </Route>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </ErrorBoundary>
     </AuthProvider>
   )
 }
