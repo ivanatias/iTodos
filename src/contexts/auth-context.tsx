@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<AuthResponse | null>(null)
-  const [isAuthorizing, setIsAuthorizing] = useState(true)
+  const [isAuthorizing, setIsAuthorizing] = useState<boolean>(true)
 
   const loginUser = async ({ username, password }: Credentials) => {
     const config = {
