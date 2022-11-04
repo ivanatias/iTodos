@@ -16,6 +16,6 @@ export const getUserTodos = async (
     throw new Error(errorText)
   }
 
-  const todos = (await response.json()) as Todo[]
+  const todos = await response.json()
   return todos
 }
