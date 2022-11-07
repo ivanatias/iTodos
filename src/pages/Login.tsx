@@ -16,6 +16,10 @@ const Login = () => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
+    if (username.value === '' || password.value === '') {
+      toast.error('All fields are required!')
+      return
+    }
     try {
       await loginUser({ username: username.value, password: password.value })
       navigate('/', { replace: true })
