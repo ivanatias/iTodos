@@ -72,6 +72,7 @@ const TodoItem = ({ todo }: Props) => {
           Icon={PencilIcon}
           actionFunction={toggleEdit}
           backgroundColor='bg-yellow-500'
+          disabled={todo.isCompleted}
         />
         <TodoActionButton
           Icon={TrashIcon}
