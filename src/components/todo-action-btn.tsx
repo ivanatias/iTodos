@@ -16,7 +16,7 @@ const TodoActionButton = ({
   return (
     <button
       onClick={actionFunction}
-      className={`p-1 font-bold text-white ${backgroundColor} border-none rounded-md outline-none`}
+      className={`p-1 font-bold text-white ${backgroundColor} border-none rounded-md outline-none disabled:opacity-50`}
       disabled={disabled}
     >
       <Icon className='w-3 h-3' />
