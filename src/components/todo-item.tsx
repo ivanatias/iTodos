@@ -13,7 +13,7 @@ interface Props {
 }
 
 const importantTodoStyles = 'border border-red-400'
-const completeTodoStyles = 'line-through bg-slate-400 opacity-70'
+const completeTodoStyles = 'line-through bg-slate-400'
 
 const TodoItem = ({ todo }: Props) => {
   const { user } = useAuth()
