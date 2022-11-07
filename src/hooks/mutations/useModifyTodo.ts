@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { editTodo } from '../../services/edit-todo'
 import type { Todo, MutateTodo } from '../../models/types'
+import { expiredTokenError } from '../../utils/constants'
 
 export const useModifyTodo = ({ token, id }: MutateTodo) => {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const { mutate: modifyTodo } = useMutation(editTodo, {
     onMutate: async ({ title, isPriority, isCompleted }) => {
@@ -34,8 +37,13 @@ export const useModifyTodo = ({ token, id }: MutateTodo) => {
       return { previousTodos }
     },
 
-    onError: (_error, _variables, context) => {
+    onError: (error, _variables, context) => {
       queryClient.setQueryData(['todos', token], context?.previousTodos)
+
+      if (error instanceof Error) {
+        error.message === expiredTokenError.message &&
+          navigate('/login', { replace: true })
+      }
     },
 
     onSettled: async () => {
