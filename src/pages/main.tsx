@@ -15,7 +15,7 @@ const Main = () => {
 
   const handleLogout = () => {
     logoutUser()
-    navigate('/login', { replace: true })
+    navigate('/signin', { replace: true })
   }
 
   if (isLoading) return <Spinner />

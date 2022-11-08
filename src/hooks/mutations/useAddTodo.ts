@@ -41,7 +41,7 @@ export const useAddTodo = (token: string) => {
 
       if (error instanceof Error) {
         error.message === expiredTokenError.message &&
-          navigate('/login', { replace: true })
+          navigate('/signin', { replace: true })
       }
     },
 

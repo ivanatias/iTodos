@@ -28,7 +28,7 @@ const Signup = () => {
         password: password.value,
       })
       toast.success('User created, you can now log in!')
-      navigate('/login', { replace: true })
+      navigate('/signin', { replace: true })
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)
@@ -69,7 +69,7 @@ const Signup = () => {
           ]}
         />
         <Link
-          to='/login'
+          to='/signin'
           className='flex items-center justify-center text-sm text-gray-600 w-fit'
         >
           <ArrowLeftIcon className='w-4 h-4 mr-1' />

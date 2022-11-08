@@ -7,7 +7,7 @@ const ProtectedRoute = () => {
 
   if (isAuthorizing) return <FirstLoadScreen />
 
-  if (user === null) return <Navigate to='/login' replace={true} />
+  if (user === null) return <Navigate to='/signin' replace={true} />
 
   return <Outlet />
 }

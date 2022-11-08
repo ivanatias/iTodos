@@ -1,5 +1,5 @@
 import AuthProvider from './contexts/auth-context'
-import Login from './pages/login'
+import Signin from './pages/signin'
 import Signup from './pages/signup'
 import Main from './pages/main'
 import Layout from './components/layout'
@@ -16,7 +16,7 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route path='/' element={<Main />} />
             </Route>
-            <Route path='/login' element={<Login />} />
+            <Route path='/signin' element={<Signin />} />
             <Route path='/signup' element={<Signup />} />
           </Route>
         </Routes>

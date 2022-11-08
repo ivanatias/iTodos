@@ -7,7 +7,7 @@ import { useLogout } from '../hooks/useLogout'
 import type { FormEvent } from '../models/types'
 import { toast } from 'react-hot-toast'
 
-const Login = () => {
+const Signin = () => {
   useLogout()
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
   const { reset: resetPassword, ...password } = useField({ type: 'password' })
@@ -71,4 +71,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signin

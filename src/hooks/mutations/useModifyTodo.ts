@@ -42,7 +42,7 @@ export const useModifyTodo = ({ token, id }: MutateTodo) => {
 
       if (error instanceof Error) {
         error.message === expiredTokenError.message &&
-          navigate('/login', { replace: true })
+          navigate('/signin', { replace: true })
       }
     },
 

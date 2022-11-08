@@ -12,7 +12,7 @@ export const useTodos = (token: string) => {
       onError: (error) => {
         if (error instanceof Error) {
           error.message === expiredTokenError.message &&
-            navigate('/login', { replace: true })
+            navigate('/signin', { replace: true })
         }
       },
     }
