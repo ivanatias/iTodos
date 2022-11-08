@@ -5,10 +5,11 @@ interface Props {
   underlined?: boolean
   size?: 'small' | 'big'
   children: string
+  disabled?: boolean
 }
 
 const commonStyles =
-  'text-sm font-bold 2xl:text-base border-none outline-none flex-shrink-0 transition-colors duration-150'
+  'text-sm font-bold 2xl:text-base border-none outline-none flex-shrink-0 transition-colors duration-150 disabled:opacity-50'
 
 const underlinedStyles = 'underline-offset-2 underline'
 
@@ -25,6 +26,7 @@ const PlainButton = ({
   underlined,
   size,
   children,
+  disabled,
 }: Props) => {
   const isPrimary = variant !== undefined && variant === 'primary'
   const isUnderlined = underlined !== undefined && underlined
@@ -37,6 +39,7 @@ const PlainButton = ({
       className={`${isPrimary ? primaryStyles : secondaryStyles} ${
         isUnderlined ? underlinedStyles : ''
       } ${isBig ? bigStyles : smallStyles}`}
+      disabled={disabled}
     >
       {children}
     </button>

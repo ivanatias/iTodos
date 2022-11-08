@@ -3,6 +3,7 @@ import GradientTitle from '../components/gradient-title'
 import { Link, useNavigate } from 'react-router-dom'
 import { useField } from '../hooks/useField'
 import { useAuth } from '../contexts/auth-context'
+import { useToggle } from '../hooks/useToggle'
 import { useLogout } from '../hooks/useLogout'
 import type { FormEvent } from '../models/types'
 import { toast } from 'react-hot-toast'
@@ -11,6 +12,7 @@ const Signin = () => {
   useLogout()
   const { reset: resetUsername, ...username } = useField({ type: 'text' })
   const { reset: resetPassword, ...password } = useField({ type: 'password' })
+  const { value: loggingIn, toggleValue: toggleLoggingIn } = useToggle()
   const { loginUser } = useAuth()
   const navigate = useNavigate()
 
@@ -21,6 +23,7 @@ const Signin = () => {
       return
     }
     try {
+      toggleLoggingIn()
       await loginUser({ username: username.value, password: password.value })
       navigate('/', { replace: true })
     } catch (err) {
@@ -30,6 +33,7 @@ const Signin = () => {
       }
       resetUsername()
       resetPassword()
+      toggleLoggingIn()
     }
   }
 
@@ -39,7 +43,8 @@ const Signin = () => {
       <div className='p-3 bg-gray-100 rounded-sm shadow-md'>
         <Form
           onSubmit={handleLogin}
-          submitActionText='Login'
+          submitActionText={loggingIn ? 'Please wait...' : 'Login'}
+          submitDisabled={loggingIn}
           inputs={[
             {
               ...username,

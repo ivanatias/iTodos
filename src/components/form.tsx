@@ -7,16 +7,27 @@ interface FormProps {
   inputs: InputProps[]
   onSubmit: (e: FormEvent) => Promise<void> | void
   submitActionText: string
+  submitDisabled: boolean
 }
 
-const Form = ({ inputs, onSubmit, submitActionText }: FormProps) => {
+const Form = ({
+  inputs,
+  onSubmit,
+  submitActionText,
+  submitDisabled,
+}: FormProps) => {
   return (
     <form onSubmit={onSubmit} className='flex flex-col w-full gap-3'>
       {inputs.map((input, index) => (
         <Input {...input} key={index} />
       ))}
       <div className='flex justify-center'>
-        <PlainButton variant='primary' type='submit' size='big'>
+        <PlainButton
+          variant='primary'
+          type='submit'
+          size='big'
+          disabled={submitDisabled}
+        >
           {submitActionText}
         </PlainButton>
       </div>
