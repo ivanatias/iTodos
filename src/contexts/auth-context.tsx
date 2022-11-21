@@ -34,7 +34,7 @@ const AuthProvider = ({ children }: Props) => {
       throw new Error(errorText)
     }
 
-    const userSession = (await response.json()) as AuthResponse
+    const userSession: AuthResponse = await response.json()
     setUser(userSession)
     window.localStorage.setItem('user', JSON.stringify(userSession))
   }
