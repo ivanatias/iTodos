@@ -1,9 +1,7 @@
 import type { Todo } from '../models/types'
 import { API_URL } from '../utils/constants'
 
-export const getUserTodos = async (
-  token: string
-): Promise<Todo[] | undefined> => {
+export const getUserTodos = async (token: string): Promise<Todo[]> => {
   const config = {
     headers: {
       Authorization: `Bearer ${token} `,

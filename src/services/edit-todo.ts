@@ -7,7 +7,7 @@ export const editTodo = async ({
   isCompleted,
   token,
   id,
-}: TodoMutationData): Promise<Todo | undefined> => {
+}: TodoMutationData): Promise<Todo> => {
   const config = {
     method: 'PUT',
     headers: {

@@ -5,7 +5,7 @@ export const addTodo = async ({
   token,
   title,
   isPriority,
-}: AddTodo): Promise<Todo | undefined> => {
+}: AddTodo): Promise<Todo> => {
   const config = {
     method: 'POST',
     headers: {
