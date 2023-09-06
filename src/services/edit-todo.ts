@@ -11,7 +11,7 @@ export const editTodo = async ({
   const config = {
     method: 'PUT',
     headers: {
-      'Content-type': 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token} `,
     },
     body: JSON.stringify({ title, isPriority, isCompleted }),

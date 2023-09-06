@@ -9,7 +9,7 @@ export const addTodo = async ({
   const config = {
     method: 'POST',
     headers: {
-      'Content-type': 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token} `,
     },
     body: JSON.stringify({ title, isPriority }),

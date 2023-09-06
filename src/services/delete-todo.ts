@@ -5,7 +5,7 @@ export const deleteTodo = async ({ token, id }: MutateTodo): Promise<void> => {
   const config = {
     method: 'DELETE',
     headers: {
-      'Content-type': 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token} `,
     },
   }
